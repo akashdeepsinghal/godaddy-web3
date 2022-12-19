@@ -45,3 +45,6 @@ In a separate terminal execute:
 
 ## Stay in touch
 - Author - [Akash Singhal](https://akashsinghal.simple.ink/)
+
+### Acknowledgments
+Big Thanks to [Dapp University](https://www.dappuniversity.com/) and [Gregory](https://www.twitter.com/DappUniversity)!
