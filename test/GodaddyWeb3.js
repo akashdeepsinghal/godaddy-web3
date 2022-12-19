@@ -20,7 +20,7 @@ describe("GodaddyWeb3", () => {
     const GodaddyWeb3 = await ethers.getContractFactory("GodaddyWeb3");
     godaddyWeb3 = await GodaddyWeb3.deploy(CONTRACT_NAME, CONTRACT_SYMBOL);
 
-    // List property
+    // List domain
     let transaction = await godaddyWeb3
       .connect(deployer)
       .list(DOMAIN_NAME, tokens(10));
@@ -46,12 +46,32 @@ describe("GodaddyWeb3", () => {
     });
   });
 
-  describe("Listing", async () => {
+  describe("Domain", async () => {
     it("Returns domain attributes", async () => {
       const result = await godaddyWeb3.domains(1);
       expect(result.name).to.be.equal(DOMAIN_NAME);
       expect(result.cost).to.be.equal(DOMAIN_COST);
       expect(result.isOwned).to.be.equal(false);
+    });
+  });
+
+  describe("Minting", async () => {
+    const ID = 1;
+    const AMOUNT = tokens(10);
+    beforeEach(async () => {
+      // Mint domain
+      let transaction = await godaddyWeb3
+        .connect(owner1)
+        .mint(ID, { value: AMOUNT });
+      await transaction.wait();
+    });
+    it("Updates the owner", async () => {
+      const result = await godaddyWeb3.ownerOf(ID);
+      expect(result).to.be.equal(owner1.address);
+    });
+    it("Updates the balance", async () => {
+      const result = await godaddyWeb3.getBalance();
+      expect(result).to.be.equal(AMOUNT);
     });
   });
 });

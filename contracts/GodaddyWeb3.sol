@@ -30,4 +30,16 @@ contract GodaddyWeb3 is ERC721 {
         maxSupply++;
         domains[maxSupply] = Domain(_name, _cost, false);
     }
+
+    function mint(uint256 _id) public payable {
+        _safeMint(msg.sender, _id);
+    }
+
+    function getDomain(uint256 _id) public view returns (Domain memory) {
+        return domains[_id];
+    }
+
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
 }
