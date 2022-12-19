@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract GodaddyWeb3 is ERC721 {
     uint256 public maxSupply;
+    uint256 public totalSupply;
     address public owner;
 
     struct Domain {
@@ -32,6 +33,13 @@ contract GodaddyWeb3 is ERC721 {
     }
 
     function mint(uint256 _id) public payable {
+        require(_id != 0, "ID should be greater than 0");
+        require(_id <= maxSupply, "Invalid ID");
+        require(domains[_id].isOwned == false, "Already owned");
+        require(msg.value >= domains[_id].cost, "Insufficient amount");
+
+        totalSupply++;
+        domains[_id].isOwned = true;
         _safeMint(msg.sender, _id);
     }
 

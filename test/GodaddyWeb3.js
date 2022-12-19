@@ -44,6 +44,10 @@ describe("GodaddyWeb3", () => {
       const result = await godaddyWeb3.maxSupply();
       expect(result).to.be.equal(1);
     });
+    it("Returns the totalSupply", async () => {
+      const result = await godaddyWeb3.totalSupply();
+      expect(result).to.be.equal(0);
+    });
   });
 
   describe("Domain", async () => {
@@ -69,9 +73,17 @@ describe("GodaddyWeb3", () => {
       const result = await godaddyWeb3.ownerOf(ID);
       expect(result).to.be.equal(owner1.address);
     });
+    it("Updates the ownership status", async () => {
+      const result = await godaddyWeb3.getDomain(ID);
+      expect(result.isOwned).to.be.equal(true);
+    });
     it("Updates the balance", async () => {
       const result = await godaddyWeb3.getBalance();
       expect(result).to.be.equal(AMOUNT);
+    });
+    it("Updates the totalSupply", async () => {
+      const result = await godaddyWeb3.totalSupply();
+      expect(result).to.be.equal(1);
     });
   });
 });
