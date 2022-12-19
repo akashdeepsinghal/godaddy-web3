@@ -8,8 +8,8 @@ const tokens = (n) => {
 describe("GodaddyWeb3", () => {
   let godaddyWeb3;
   let deployer, owner1;
-  const CONTRACT_NAME = "Akash Singhal";
-  const CONTRACT_SYMBOL = "ADS";
+  const CONTRACT_NAME = "GodaddyWeb3";
+  const CONTRACT_SYMBOL = "GW3";
   const DOMAIN_NAME = "akash.eth";
   const DOMAIN_COST = tokens(10);
   beforeEach(async () => {
