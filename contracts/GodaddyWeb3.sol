@@ -50,4 +50,9 @@ contract GodaddyWeb3 is ERC721 {
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
+
+    function withdrawBalance() public onlyOwner {
+        (bool success, ) = owner.call{value: address(this).balance}("");
+        require(success);
+    }
 }

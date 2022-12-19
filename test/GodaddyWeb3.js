@@ -86,4 +86,30 @@ describe("GodaddyWeb3", () => {
       expect(result).to.be.equal(1);
     });
   });
+
+  describe("Withdrawal", async () => {
+    const ID = 1;
+    const AMOUNT = tokens(10);
+    let balanceBefore;
+    beforeEach(async () => {
+      balanceBefore = await ethers.provider.getBalance(deployer.address);
+      // Mint domain
+      let transaction = await godaddyWeb3
+        .connect(owner1)
+        .mint(ID, { value: AMOUNT });
+      await transaction.wait();
+
+      // Withdraw amount
+      transaction = await godaddyWeb3.connect(deployer).withdrawBalance();
+      await transaction.wait();
+    });
+    it("Updates the owner balance", async () => {
+      const balanceAfter = await ethers.provider.getBalance(deployer.address);
+      expect(balanceAfter).to.be.greaterThan(balanceBefore);
+    });
+    it("Updates the contract balance", async () => {
+      const result = await godaddyWeb3.getBalance();
+      expect(result).to.be.equal(0);
+    });
+  });
 });
